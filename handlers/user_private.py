@@ -3,7 +3,6 @@ from aiogram.filters import CommandStart
 from aiogram import types
 
 from kbds.inline import get_url_btns
-from kbds.keyboards import get_kb
 from emoji import emojize as _
 
 user_private_router = Router()
