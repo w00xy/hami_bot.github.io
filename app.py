@@ -30,7 +30,7 @@ async def main():
 
     dp = Dispatcher()
 
-    # on_start_up and shotdown functions
+    # on_start_up and shotdown functions dasdsa
     # dp.startup.register(on_startup)
     dp.shutdown.register(on_shutdown)
 
