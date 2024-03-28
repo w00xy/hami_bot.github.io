@@ -10,7 +10,8 @@ user_private_router = Router()
 
 @user_private_router.message(CommandStart())
 async def start_cmd(message: types.Message):
-    await message.answer(_('Это Hami bot 🐹'), reply_markup=get_url_btns(btns={
-                'Начать фармить': 'https://t.me/herewalletbot/app'
-            }))
+    markup=get_url_btns(btns={
+                'Начать фармить': 't.me/testwebbaappbot/webapptestdz'
+            })
+    await message.answer(_('Это Hami bot 🐹'), reply_markup=markup)
     await message.delete()

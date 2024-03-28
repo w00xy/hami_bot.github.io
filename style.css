@@ -1,0 +1,12 @@
+.main{
+    max-width: 570px;
+    height: 400px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tap_block{
+    border-radius: 100px;
+}

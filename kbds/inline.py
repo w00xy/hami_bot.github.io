@@ -1,5 +1,6 @@
 from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.types import WebAppInfo
 
 
 def get_callback_btns(
@@ -21,6 +22,7 @@ def get_url_btns(
     keyboard = InlineKeyboardBuilder()
 
     for text, url in btns.items():
+        # src = WebAppInfo(url)
         keyboard.add(InlineKeyboardButton(text=text, url=url))
 
     return keyboard.adjust(*sizes).as_markup()
