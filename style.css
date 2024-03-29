@@ -1,32 +1,54 @@
 body{
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
+.full_page{
+    width: 100%;
+    height: 720px;
+}
 /* first stage */
 .visible_first_stage{
-    width: 560px;
-    height: 680px;
-    background-image: url(assets/bg_v2.jpg);  
+    background-image: url('assets/thron_v4.jpg');
+    background-size: cover; /* Растягивает изображение так, чтобы покрыть весь задний план */
+    background-repeat: no-repeat;
+    background-position: center; /* Центрирует изображение по центру экрана */
+    height: 100vh; /* Занимает 100% высоты экрана */
+    text-align: center; /* Выравнивание текста по центру */
 }
 
+
 .header_first_stage{
-    width: 560px;
     display: flex;
     justify-content: right;
     position: relative;
-    right: 10px;
-    top: 10px;
+    right: 20px;
+    top: 15px;
 }
 
 .kubok_img{
-    width: 70px;
+    width: 50px;
 }
 
 .settings_img{
-    width: 70px;
+    width: 50px;
 }
 
-::-webkit-scrollbar {
-    display: none;
+
+.mode_menu{
+    display: flex;        
+    align-items: end;   
+    width: 100%;
+    justify-content: space-around;
+    margin-left: -40px;
+    height: 100%;
+    margin-top: -28px;
+}
+
+.mode_menu_first_el{
+    width: 20px;
+    padding: 10px;
+
+       
 }
