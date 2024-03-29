@@ -63,3 +63,11 @@ body{
 .img{
     width: 150px;
 }
+
+.mode_menu_left_top_btn{
+    margin-bottom: -50px;
+}
+
+.mode_menu_right_top_btn{
+    margin-bottom: -50px;
+}
