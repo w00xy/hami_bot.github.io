@@ -40,7 +40,7 @@ body{
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    margin-top: 40px;
+    margin-top: -10px;
 }
 
 .left_btn{
@@ -65,9 +65,9 @@ body{
 }
 
 .mode_menu_left_top_btn{
-    margin-bottom: -50px;
+    margin-bottom: -60px;
 }
 
 .mode_menu_right_top_btn{
-    margin-bottom: -50px;
+    margin-bottom: -60px;
 }
