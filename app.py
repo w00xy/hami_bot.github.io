@@ -8,7 +8,9 @@ from aiogram.enums import ParseMode
 from common.bot_cmds_list import private
 from common.routers import routers
 
-allowed_updates = ['message']
+# разрешенные методы общения с ботом
+allowed_updates = ['message, callback_query']
+
 # creating database
 # async def on_startup():
 #
@@ -22,7 +24,8 @@ allowed_updates = ['message']
 async def on_shutdown():
     print('Бот лёг')
 
-
+# token sani
+# 7136629252:AAE7lO6ylIskbIxh23zE1GXrZjme7H6nf7A
 async def main():
     # bot setting
     bot = Bot(token='7136629252:AAE7lO6ylIskbIxh23zE1GXrZjme7H6nf7A', parse_mode=ParseMode.HTML)
@@ -37,14 +40,14 @@ async def main():
     # drop offline messages
     await bot.delete_webhook(drop_pending_updates=True)
 
-    # connecting the routers
+    # подключение роутеров
     for router in routers:
         dp.include_router(router)
 
     # connecting the middlewares
     # dp.update.middleware(DataBaseSession(session_pool=session_maker))
 
-    # set bot menu buttons
+    # кнопки из меню справа снизу
     await bot.set_my_commands(commands=private, scope=types.BotCommandScopeAllPrivateChats())
 
     await dp.start_polling(bot, allowed_updates=allowed_updates)
