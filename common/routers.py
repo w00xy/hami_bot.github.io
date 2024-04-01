@@ -1,3 +1,5 @@
 from handlers.user_private import user_private_router
+from handlers.user_private_1 import user_private1_router
 
 routers = [user_private_router]
+user_private_router.include_router(user_private1_router)
