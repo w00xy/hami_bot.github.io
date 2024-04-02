@@ -10,5 +10,6 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[str] = mapped_column(String(15), nullable=False, unique=True)
     referer_id: Mapped[str] = mapped_column(String(15), nullable=True, default=None)
+    wallet_address: Mapped[str] = mapped_column(String(40), nullable=True, default=None)
     balance: Mapped[str] = mapped_column(String(15), nullable=True, default=0)
     reposted: Mapped[bool] = mapped_column(Boolean, default=False, nullable=True)
