@@ -2,14 +2,17 @@ from aiogram import Router, types, F, Bot
 from aiogram.filters import CommandStart
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from common.additional import get_main_kb
 from config import BOT_LINK
-from database.orm_query import user_exists, add_user
+from database.orm_query import orm_user_exists, orm_add_user, orm_user_exists
 from filters.chat_types import ChatTypeFilter
+from handlers.user_private_checked import user_private_checked
 from kbds.inline import get_callback_btns, get_url_btns
 from kbds.keyboards import get_kb
 
 user_private_router = Router()
 user_private_router.message.filter(ChatTypeFilter(["private"]))
+user_private_router.include_router(user_private_checked)
 
 @user_private_router.message(CommandStart())
 async def start_message(message: types.Message, session: AsyncSession):
@@ -17,8 +20,8 @@ async def start_message(message: types.Message, session: AsyncSession):
     # print(f'ЭТО ВЫВОД - ', get)
     referer_id = None
 
-    if await user_exists(session, message.from_user.id) == None:
-        await add_user(session, user_id=message.from_user.id, referer_id=referer_id, balance=500)
+    if await orm_user_exists(session, message.from_user.id) == None:
+        await orm_add_user(session, user_id=message.from_user.id, referer_id=referer_id, balance=500)
         await message.answer_photo(
             photo='AgACAgIAAxkBAAM8ZgaLH-oBdfCl-QAB6gXQ4m4wfJ8VAAJn2TEbzOg4SI9Pnv-H3fZTAQADAgADeAADNAQ',
             caption='<b>AIRDROP HAMI TOKEN</b> 🐹\n\n<b>500</b> $HAMI - за каждого приглашенного в бота 🤝\nУспей позвать как можно больше друзей!\n\nНЕТ никаких ограничений, каждый получит гарантированный AIRDROP от HAMI🐹\nПодписывайся на официальный тг канал, там все условия👇\n\n'
@@ -51,13 +54,7 @@ async def check_subscribe_command(callback: types.CallbackQuery, bot: Bot):
 
     if (await bot.get_chat_member(chat_id='@hamitoken', user_id=callback.from_user.id)).status != 'left':
         await callback.message.answer('<b>📃 Главное меню</b>',
-                                      reply_markup=get_kb('Кошелек/Wallet👛',
-                                                          'Баланс/balance🐹',
-                                                          'Twitter(HOT)📢',
-                                                          'Условия/Terms📒',
-                                                          placeholder='Выберай кнопку',
-                                                          sizes=(2, 2,)
-                                                          )
+                                      reply_markup=get_main_kb()
         )
 
         await callback.message.answer_photo('AgACAgIAAxkBAAIBhWYLD_BBRjTVjvdMOmNZFki0knyDAAIX2zEbXu1ZSK1FJQr4kUB9AQADAgADeAADNAQ',
@@ -74,7 +71,8 @@ async def check_subscribe_command(callback: types.CallbackQuery, bot: Bot):
         await callback.answer('Nope!')
 
 
-@user_private_router.message()
+
+@user_private_router.message(F.photo)
 async def get_photo(message: types.Message):
     if message.photo:
         await message.answer(f'ID фото: {message.photo[-1].file_id}')
