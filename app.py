@@ -1,6 +1,5 @@
 import asyncio
 import logging
-import os
 
 from database.engine import drop_db, create_db, session_maker
 

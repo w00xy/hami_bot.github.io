@@ -1,10 +1,10 @@
-from aiogram import Router, F, Bot, types
+from aiogram import Router, F, types
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from common.additional import get_main_kb
-from common.reply_messages import send_user_balance, send_terms
+from common.reply_messages import send_user_balance, send_terms, send_main_menu_kb_message
 from config import BOT_LINK
 from database.orm_query import orm_get_wallet_address, orm_update_wallet, orm_get_current_balance, orm_get_repost_link, \
     orm_update_repost_link
@@ -85,7 +85,8 @@ async def add_wallet(message: types.Message, state: FSMContext, session: AsyncSe
         data = await state.get_data()
         try:
             await orm_update_wallet(session, data, user_id=message.from_user.id)
-            await message.answer("Адрес добавлен", reply_markup=get_main_kb())
+            await message.answer(f'Адрес вашего кошелька был сохранен - {message.text}\n\nЕсли вы хотите его изменить перейдите еще раз во вкладку Кошелек🐹', )
+            await send_main_menu_kb_message(message)
             await state.clear()
         except Exception as e:
             await message.answer('гг сломал бота')
@@ -147,7 +148,9 @@ async def get_user_repost_link(message: types.Message, session: AsyncSession, st
         data = await state.get_data()
         try:
             await orm_update_repost_link(session, user_id=message.from_user.id, data=data)
-            await message.answer("Cсылка на репорст сохранена", reply_markup=get_main_kb())
+            await message.answer(
+                f'Cсылка на репорст сохранена - {message.text}\n\nЕсли вы хотите ее изменить перейдите еще раз во вкладку Twitter🐹', )
+            await send_main_menu_kb_message(message)
             await state.clear()
         except Exception as e:
             await message.answer('гг сломал бота')
