@@ -12,4 +12,4 @@ class User(Base):
     referer_id: Mapped[str] = mapped_column(String(15), nullable=True, default=None)
     wallet_address: Mapped[str] = mapped_column(String(40), nullable=True, default=None)
     balance: Mapped[str] = mapped_column(String(15), nullable=True, default=0)
-    reposted: Mapped[bool] = mapped_column(Boolean, default=False, nullable=True)
+    repost_link: Mapped[bool] = mapped_column(String(40), nullable=True, default=None)
